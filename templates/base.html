@@ -5,12 +5,8 @@
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-tofit=no">
  <meta name="description" content="Parcel App">
  <meta name="author" content="Iffy K">
- <!--<link rel="icon" href="TODO">-->
- <!-- Favicons (http://realfavicongenerator.net)
- TODO -->
- <!-- Open Graph
- TODO -->
- <title>Advanced Development Unit</title>
+ 
+ <title>Parcel App</title>
 
 <!-- Firebase Scripts -->
 <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
@@ -33,7 +29,7 @@ here! -->
  <body>
  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
  <!-- Navbar branding. -->
- <a class="navbar-brand" href="index.html">WS</a>
+ <a class="navbar-brand" href="home">WS</a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" datatarget="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" ariaexpanded="false" aria-label="Toggle navigation">
  <span class="navbar-toggler-icon"></span>
  </button>
@@ -60,17 +56,6 @@ here! -->
  {% endblock %}
  </main><!-- /.container -->
  <!-- Bootstrap core JavaScript -->
- <script>
-     'use strict';
-     window.addEventListener('load', function(){
-        document.getElementById('sign-out').onclick = function () {
-            firebase.auth().signOut().then(() => {
-                // Successful sign out
-                window.location.assign('/login');
-            });
-        };
-     })
- </script>
  <!-- Placed at the end of the document so the pages load faster -->
  <script src="https://code.jquery.com/jquery3.3.1.slim.min.js" integrity="sha384-
 q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="ano

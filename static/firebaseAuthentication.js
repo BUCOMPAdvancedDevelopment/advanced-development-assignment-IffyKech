@@ -17,9 +17,7 @@ window.addEventListener('load', function () {
 
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      // User is signed in
-      console.log(user);
-      
+      // User is signed in      
       user.getIdToken().then(function (token) {
         // Add the token to the browser's cookies. The server will then be
         // able to verify the token against the API.

@@ -16,17 +16,14 @@ def render_login():
 def render_index():
     return render_template('index.html')
 
-@app.route('/tracking')
-def render_tracking():
-    return render_template('tracking.html')
-
 @app.route('/products')
 def render_products():
     return render_template('products.html')
 
-@app.route('orders')
+@app.route('/orders')
 def render_orders():
     return render_template('orders.html')
+
 
 """ADMIN SECTION """
 @app.route('/admin')

@@ -20,8 +20,8 @@ def render_index():
 @app.route('/products', methods=["GET"])
 def render_products():
     list_products_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_products"
-    products_data = requests.get(list_products_function_url)
-    print(products_data)
+    request = requests.get(list_products_function_url)
+    products_data = request.json()
     return render_template('products.html', products_data=products_data)
 
 @app.route('/orders')
@@ -38,7 +38,7 @@ def render_admin():
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request')
-    return 'An internal error occurred.', 500
+    return e, 500
 
 @app.errorhandler(404)
 def page_not_found(error):

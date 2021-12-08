@@ -17,7 +17,7 @@
          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
         <!-- Custom scripts -->
-        <link type="text/css" rel="stylesheet" href="/static/css/styles.css">
+        <link type="text/css" rel="stylesheet" href="/static/css/stylesheet.css">
     </head>
 
     <!-- Jinja Navigation Bar -->
@@ -58,40 +58,24 @@
                     <h1>Products</h1>
                 </div>
                 <div class="container">
+                    {% for row in products_data|batch(3) %}
                     <div class="row">
-                        <div class="col">
+                        {% for column in row %}
+                        <div class="col" id="productColumn">
                             <div class="card" style="width: 18rem;">
-                                <img src="https://storage.googleapis.com/parcel-app/0.PNG" class="card-img-top" alt="A picture of a diffuser">
+                                <div class="card-img">
+                                    <img src="{{ column.src }}" class="card-img-top" alt="A picture of a diffuser">
+                                </div>
                                 <div class="card-body">
-                                  <h5 class="card-title">DIFFUSER</h5>
-                                  <p class="card-text">PRICE</p>
+                                  <h5 class="card-title">{{ column.name }}</h5>
+                                  <p class="card-text">£{{ column.price }}</p>
                                   <a href="#" class="btn btn-primary">Go somewhere</a>
                                 </div>
                               </div>
                         </div>
-
-                        <div class="col">
-                            <div class="card" style="width: 18rem;">
-                                <img src="gs://parcel-app/0.PNG" class="card-img-top" alt="A picture of a diffuser">
-                                <div class="card-body">
-                                  <h5 class="card-title">DIFFUSER</h5>
-                                  <p class="card-text">PRICE</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card" style="width: 18rem;">
-                                <img src="gs://parcel-app/0.PNG" class="card-img-top" alt="A picture of a diffuser">
-                                <div class="card-body">
-                                  <h5 class="card-title">DIFFUSER</h5>
-                                  <p class="card-text">PRICE</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                        </div>
+                        {% endfor %}                       
                     </div>
+                    {% endfor %} 
                 </div>
             </main>
         </div>

@@ -1,4 +1,5 @@
 import logging
+import requests
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
@@ -19,7 +20,7 @@ def render_index():
 @app.route('/products', methods=["GET"])
 def render_products():
     list_products_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_products"
-    products_data = request.get(list_products_function_url)
+    products_data = requests.get(list_products_function_url)
     print(products_data)
     return render_template('products.html', products_data=products_data)
 

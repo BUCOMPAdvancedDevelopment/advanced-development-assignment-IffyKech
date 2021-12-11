@@ -6,7 +6,7 @@
         <meta name="description" content="Parcel App">
         <meta name="author" content="Iffy">
 
-        <title>Parcel App</title>
+        <title>{{ product_data[0].name }}</title>
 
         <!-- Firebase Scripts -->
         <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
@@ -17,6 +17,7 @@
          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
         <!-- Custom scripts -->
+        <script src="{{ url_for('static', filename='requestOrdeeee.js') }}"></script>
         <link type="text/css" rel="stylesheet" href="/static/css/stylesheet.css">
     </head>
 
@@ -55,53 +56,44 @@
         <div class="container">
             <main class="main-content" role="main">
                 <div class="page-title" id="productsTitle">
-                    <h1>Products</h1>
+                    <h1>{{ product_data[0].name }}</h1>
                 </div>
                 <div class="container">
-                    {% for row in products_data|batch(3) %}
                     <div class="row">
-                        {% for column in row %}
-                        <div class="col" id="productColumn">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-img">
-                                    <img src="{{ column.src }}" class="card-img-top" alt="A picture of a diffuser">
-                                </div>
-                                <div class="card-body">
-                                  <p id="productID" hidden>{{ column.id }}</p>  
-                                  <h5 class="card-title">{{ column.name }}</h5>
-                                  <p class="card-text">£{{ column.price }}</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                        </div>
-                        {% endfor %}                       
-                    </div>
-                    {% endfor %} 
-                </div>
-  
-            <!-- Modal -->
-            <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModal" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalTitle">Confirm Order</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="trackingInput" class="form-label"><strong>Order Number:</strong></label>
-                                <input type="text" id="trackingInput" class="form-control" placeholder="e.g. jdsahdo">
+                        <div class="col">
+                            <div class="fullProductImage">
+                                <img src="{{ product_data[0].src }} " alt="A picture of a diffuser">
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="productDescriptionHeader">
+                                <h2>Description</h2>
+                            </div>
+                            <div class="productDescription">
+                                <p>{{ product_data[0].description }}</p>
+                                <p><strong>£{{ product_data[0].price }}</strong></p>
+                                <p id="productIdText" hidden>{{ product_data[0].id }}</p>
+                            </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="modalOrderButton">Order</button>
+                            <div class="productOrderForm">
+                                <form id="orderForm">
+                                    <h2>Fill your details</h2>
+                                    <div class="mb-3">
+                                        <label for="addressInput" class="form-label">Address:</label>
+                                        <input id="addressInput" type="text" class="form-control">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="postcodeInput" class="form-label">Post Code:</label>
+                                        <input id="postcodeInput" type="text" class="form-control">
+                                    </div>
+                                </form>
+                                <button id='formSubmit' type="button" class="btn btn-primary">Order</button>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
                 
             </main>
         </div>

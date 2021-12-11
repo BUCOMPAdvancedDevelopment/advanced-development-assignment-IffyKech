@@ -24,6 +24,11 @@ def render_products():
     products_data = request.json()
     return render_template('products.html', products_data=products_data)
 
+
+@app.route('/product/<product_id>')
+def render_product():
+    pass
+
 @app.route('/orders')
 def render_orders():
     return render_template('orders.html')

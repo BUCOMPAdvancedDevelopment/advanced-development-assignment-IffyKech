@@ -4,6 +4,11 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
+def get_google_function_data(url):
+    request = requests.get(url)
+    data = request.json()
+    return data
+
 @app.route('/')
 def login_redirect():
     return redirect(url_for('render_login'))
@@ -20,14 +25,17 @@ def render_index():
 @app.route('/products', methods=["GET"])
 def render_products():
     list_products_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_products"
-    request = requests.get(list_products_function_url)
-    products_data = request.json()
+    products_data = get_google_function_data(list_products_function_url)
+    
     return render_template('products.html', products_data=products_data)
 
 
-@app.route('/product/<product_id>')
-def render_product():
-    pass
+@app.route('/product<product_id>', methods=["GET"])
+def render_product(product_id):
+    return_product_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/return_product?id=" + product_id
+    product_data = get_google_function_data(return_product_function_url)
+
+    return render_template('product.html', product_data=product_data)
 
 @app.route('/orders')
 def render_orders():

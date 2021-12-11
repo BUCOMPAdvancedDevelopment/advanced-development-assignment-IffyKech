@@ -30,10 +30,12 @@ def render_products():
     return render_template('products.html', products_data=products_data)
 
 
-@app.route('/product<product_id>', methods=["GET"])
-def render_product(product_id):
+@app.route('/product', methods=["GET"])
+def render_product():
+    product_id = request.args.get('id')
     return_product_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/return_product?id=" + product_id
     product_data = get_google_function_data(return_product_function_url)
+    print(product_data)
 
     return render_template('product.html', product_data=product_data)
 
@@ -53,9 +55,9 @@ def server_error(e):
     logging.exception('An error occurred during a request')
     return e, 500
 
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('404.html'), 404
+# @app.errorhandler(404)
+# def page_not_found(error):
+#     return render_template('404.html'), 404
 
 if __name__ == "__main__":
     app.run(host = "127.0.0.1", port = 8080, debug = True)

@@ -7,11 +7,13 @@ window.addEventListener('load', function(){
             var userAddress = document.getElementById('addressInput').value;
             var userPostcode = document.getElementById('postcodeInput').value;
             var productID = document.getElementById('productIdText').innerText;
+            var productPrice = document.getElementById('productPriceText').innerText;
             var postBody = {
                 "id": userID,
                 "address": userAddress,
                 "postcode": userPostcode,
-                "product_id": productID
+                "product_id": productID,
+                "product_price": productPrice
             };
 
             // Start HTTP request

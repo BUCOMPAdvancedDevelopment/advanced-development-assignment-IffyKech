@@ -66,8 +66,8 @@ def process_order():
     json=body,
     headers = {"Content-type": "application/json", "Accept": "text/plain"})
     order_data = order_req.json()
-
-    return order_data
+    print(order_data)
+    return order_data, 200
     
 
 @app.route('/orders')

@@ -48,7 +48,17 @@ def process_order():
     postcode = order_request_details['postcode']
     product_id = order_request_details['product_id']
     product_price = order_request_details['product_price']
-    body = {"id": id, "address": address, "postcode": postcode, "product_id": product_id, "product_price": product_price}
+    product_name = order_request_details['product_name']
+    product_src = order_request_details['product_src']
+    body = {
+        "id": id, 
+        "address": address, 
+        "postcode": postcode, 
+        "product_id": product_id, 
+        "product_price": product_price, 
+        "product_name": product_name, 
+        "product_src": product_src
+        }
 
     create_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/create_order"
     order_req = requests.post(create_order_function_url,
@@ -61,7 +71,10 @@ def process_order():
 
 @app.route('/orders')
 def render_orders():
-    return render_template('orders.html')
+    return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders"
+    orders_data = get_google_function_data(return_orders_function_url)
+
+    return render_template('orders.html', orders_data=orders_data)
 
 
 """ADMIN SECTION """

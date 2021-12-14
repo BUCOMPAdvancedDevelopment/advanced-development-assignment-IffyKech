@@ -1,7 +1,1 @@
 runtime: python39
-
-env_variables:
-  CLOUD_SQL_USERNAME: admin
-  CLOUD_SQL_PASSWORD: password
-  CLOUD_SQL_DATABASE_NAME: parcelapp
-  CLOUD_SQL_CONNECTION_NAME: ad-lab-21:europe-west2:parcelapp

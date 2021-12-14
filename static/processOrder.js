@@ -3,6 +3,9 @@
 window.addEventListener('load', function(){
     firebase.auth().onAuthStateChanged(function(user){
         document.getElementById('formSubmit').onclick = function() {
+            /*
+            Send a HTTP request to the process_order Cloud Function (create a new order)
+             */
             var userID = user.uid;
             var userAddress = document.getElementById('addressInput').value;
             var userPostcode = document.getElementById('postcodeInput').value;

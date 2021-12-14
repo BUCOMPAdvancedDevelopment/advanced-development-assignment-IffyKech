@@ -5,12 +5,22 @@ import json
 
 app = Flask(__name__)
 
+
 def get_google_function_data(url):
+    """
+    Request data from a specified google cloud function
+    :param url: Trigger url of the google cloud function
+    :return: Response data from the cloud function
+    """
     request = requests.get(url)
     data = request.json()
     return data
         
 def get_orders_data():
+    """
+    Requests list of orders from a google cloud function
+    :return: Response data from the cloud function
+    """
     if 'id' in request.args:
         return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders?id=" + request.args.get('id')
     else:
@@ -34,6 +44,10 @@ def render_index():
 
 @app.route('/products', methods=["GET"])
 def render_products():
+    """
+    Renders the products page - sends a request to a google cloud function to get products data
+    :return:
+    """
     list_products_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_products"
     products_req = requests.post(list_products_function_url, 
     json={"source": "mongo"},
@@ -44,6 +58,10 @@ def render_products():
 
 @app.route('/product', methods=["GET"])
 def render_product():
+    """
+    Returns a specific product queried by request.args
+    :return:
+    """
     product_id = request.args.get('id')
     return_product_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/return_product?id=" + product_id
     product_data = get_google_function_data(return_product_function_url)
@@ -52,6 +70,10 @@ def render_product():
 
 @app.route('/order', methods=['POST'])
 def process_order():
+    """
+    Creates an order - receives json request of data from client and sends request to google cloud function
+    :return:
+    """
     order_request_details = request.get_json()
     id = order_request_details['id']
     address = order_request_details['address']
@@ -80,12 +102,20 @@ def process_order():
 
 @app.route('/orders')
 def render_orders():
+    """
+    Render orders page using orders data
+    :return:
+    """
     orders = get_orders_data()
     return render_template('orders.html', orders=orders)
 
 
 @app.route('/track', methods=['POST'])
 def track_order():
+    """
+    Sends a request to a google cloud function to track a specific order by ID
+    :return: Request data of the item returned by google cloud function
+    """
     order_number_request = request.get_json()
     order_number = order_number_request['order_number']
 
@@ -113,6 +143,11 @@ def render_admin_orders():
 
 @app.route('/admin/update', methods=['POST'])
 def update_order():
+    """
+    Send a request to a google cloud function to update a specific order
+    request.get_json(): Contains the order to edit and the details to update
+    :return:
+    """
     updated_order_details = request.get_json()
 
     update_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/update_order"
@@ -124,6 +159,10 @@ def update_order():
 
 @app.route('/admin/delete', methods=['DELETE'])
 def delete_order():
+    """
+    Delete a specific order specified by request.args
+    :return:
+    """
     order_id = request.args.get('id')
     delete_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/delete_order?id=" + order_id
     requests.get(delete_order_function_url)

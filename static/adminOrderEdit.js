@@ -3,6 +3,9 @@
 window.addEventListener('load', function(){
     firebase.auth().onAuthStateChanged(function(user){
         document.getElementById('saveChanges').onclick = function() {
+            /*
+            Send a HTTP request to trigger the update_order Cloud Function
+             */
             var status = document.getElementById('statusInput').value;
             var trackPoint = document.getElementById('trackPointInput').value;
             var estimatedDelivery = document.getElementById('estimatedDeliveryInput').value;
@@ -27,16 +30,19 @@ window.addEventListener('load', function(){
                 xhr.setRequestHeader('Content-Type', 'application/json'); // indicates body of post is JSON data
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
+                        if (xhr.status === 200) { // on successful request
                             alert("Order Updated!\nRefresh page to see changes");
                         }
                         
                     }
                 }
-                xhr.send(JSON.stringify(postBody));
+                xhr.send(JSON.stringify(postBody)); // send request with body data
             }
-        },
+        }
         document.getElementById('deleteOrder').onclick = function() {
+            /*
+            Send a HTTP request to the delete_order Cloud Function
+             */
             var order_id = document.getElementById('orderIDText').innerText;
 
             var xhr = new XMLHttpRequest();

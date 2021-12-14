@@ -72,9 +72,9 @@ def process_order():
 @app.route('/orders')
 def render_orders():
     return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders"
-    orders_data = get_google_function_data(return_orders_function_url)
+    orders = get_google_function_data(return_orders_function_url)
 
-    return render_template('orders.html', orders_data=orders_data)
+    return render_template('orders.html', orders=orders)
 
 
 """ADMIN SECTION """

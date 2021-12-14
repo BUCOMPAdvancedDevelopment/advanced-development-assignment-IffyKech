@@ -13,7 +13,6 @@ window.addEventListener('load', function(){
                 "postcode": userPostcode,
                 "product_id": productID
             };
-            console.log(postBody);
 
             // Start HTTP request
             var xhr = new XMLHttpRequest();
@@ -21,9 +20,11 @@ window.addEventListener('load', function(){
             xhr.setRequestHeader('Content-Type', 'application/json'); // indicates body of post is JSON data
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
-                    console.log("Success");
+                    if (xhr.status === 200) {
+                        window.location.assign('/orders');
+                    }
                 }
-            };
+            }
 
             xhr.send(JSON.stringify(postBody));
         }

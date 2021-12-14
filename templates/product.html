@@ -56,13 +56,13 @@
         <div class="container">
             <main class="main-content" role="main">
                 <div class="page-title" id="productsTitle">
-                    <h1>{{ product_data[0].name }}</h1>
+                    <h1 id="productName">{{ product_data[0].name }}</h1>
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col">
                             <div class="fullProductImage">
-                                <img src="{{ product_data[0].src }} " alt="A picture of a diffuser">
+                                <img id="productImage" src="{{ product_data[0].src }} " alt="A picture of a diffuser">
                             </div>
                         </div>
                         <div class="col">

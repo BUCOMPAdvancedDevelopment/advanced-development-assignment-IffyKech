@@ -25,7 +25,10 @@ def render_index():
 @app.route('/products', methods=["GET"])
 def render_products():
     list_products_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_products"
-    products_data = get_google_function_data(list_products_function_url)
+    products_req = requests.post(list_products_function_url, 
+    json={"source": "mongo"},
+    headers = {"Content-type": "application/json", "Accept": "text/plain"})
+    products_data = products_req.json()
     
     return render_template('products.html', products_data=products_data)
 

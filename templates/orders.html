@@ -59,15 +59,83 @@
                 </div>    
                 <section class="orders-content">
                     <div class="container">
-                        {% for order in orders_data %}
-                        <div class="card">
-                            <h5 class="card-header">Featured</h5>
-                            <div class="card-body">
-                              <h5 class="card-title">Special title treatment</h5>
-                              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                        {% for order in orders %}
+                        <div class="card" id="orderCard">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>Order Date</h5>
+                                        <p>{{ order.order_date }}</p>
+                                    </div>
+
+                                    <div class="col">
+                                        <h5>Total</h5>
+                                        <p>{{ order.product_price }}</p>
+                                    </div>
+
+                                    <div class="col">
+                                        <h5>Order #</h5>
+                                        <p>{{ order.order_id }}</p>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                            
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="status-row">
+                                        <h3 class="card-title">{{ order.status }}</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card-img">
+                                                <img src="{{ order.product_src }}" class="img-fluid rounded-start" alt="A picture of a diffuser">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="card-text" id="orderDetailRow">
+                                                    <h3>{{ order.product_name }}</h3>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="card-text" id="orderDetailRow">
+                                                    <h3>Track Point:</h3>
+                                                    <h4>{{ order.track_point }}</h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="card-text" id="orderDetailRow">
+                                                    <h5>Estimated delivery: {{ order.estimated_delivery }}</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-muted">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>Delivery Address</h5>
+                                        <p>{{ order.delivery_address }}</p>
+                                    </div>
+
+                                    <div class="col">
+                                        <h5>Product #</h5>
+                                        <p>{{ order.product_id }}</p>
+                                    </div>
+
+                                    <div class="col">
+                                        <h5>Customer #</h5>
+                                        <p>{{ order.customer_id }}</p>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                        {% endfor %}
                     </div>
                 </section>  
             </main>

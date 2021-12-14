@@ -56,7 +56,20 @@
             <main class="main-content" role="main">
                 <div class="page-title" id="productsTitle">
                     <h1>Orders</h1>
-                </div>      
+                </div>    
+                <section class="orders-content">
+                    <div class="container">
+                        {% for order in orders_data %}
+                        <div class="card">
+                            <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                              <h5 class="card-title">Special title treatment</h5>
+                              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                          </div>
+                    </div>
+                </section>  
             </main>
         </div>
         

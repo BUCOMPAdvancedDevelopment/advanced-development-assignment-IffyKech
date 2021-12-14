@@ -9,6 +9,15 @@ def get_google_function_data(url):
     request = requests.get(url)
     data = request.json()
     return data
+        
+def get_orders_data():
+    if 'id' in request.args:
+        return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders?id=" + request.args.get('id')
+    else:
+        return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders"
+    orders = get_google_function_data(return_orders_function_url)
+    return orders
+
 
 @app.route('/')
 def login_redirect():
@@ -66,18 +75,12 @@ def process_order():
     json=body,
     headers = {"Content-type": "application/json", "Accept": "text/plain"})
     order_data = order_req.json()
-    print(order_data)
-    return order_data, 200
+    return json.dumps(order_data), 200
     
 
 @app.route('/orders')
 def render_orders():
-    if 'id' in request.args:
-        return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders?id=" + request.args.get('id')
-    else:
-        return_orders_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/list_orders"
-    orders = get_google_function_data(return_orders_function_url)
-
+    orders = get_orders_data()
     return render_template('orders.html', orders=orders)
 
 
@@ -102,6 +105,31 @@ def track_order():
 @app.route('/admin')
 def render_admin():
     return render_template('admin.html')
+
+@app.route('/admin/orders')
+def render_admin_orders():
+    orders = get_orders_data()
+    return render_template('adminOrders.html', orders=orders)
+
+@app.route('/admin/update', methods=['POST'])
+def update_order():
+    updated_order_details = request.get_json()
+
+    update_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/update_order"
+    requests.post(update_order_function_url,
+    json=updated_order_details,
+    headers = {"Content-type": "application/json", "Accept": "text/plain"})
+
+    return "", 200
+
+@app.route('/admin/delete', methods=['DELETE'])
+def delete_order():
+    order_id = request.args.get('id')
+    delete_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/delete_order?id=" + order_id
+    requests.get(delete_order_function_url)
+
+    return "", 200
+
 
 """ ERROR HANDLERS """
 @app.errorhandler(500)

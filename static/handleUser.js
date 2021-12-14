@@ -10,7 +10,7 @@ window.addEventListener('load', function() {
     };
 
     firebase.auth().onAuthStateChanged((user) => { 
+        console.log(user);
         document.getElementById('welcomeUser').innerText = `Welcome ${user.displayName}`;
-        
     });
 });

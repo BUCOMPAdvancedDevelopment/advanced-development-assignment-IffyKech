@@ -47,10 +47,16 @@ def process_order():
     address = order_request_details['address']
     postcode = order_request_details['postcode']
     product_id = order_request_details['product_id']
-    create_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/create_order?id=%s&address=%s&postcode=%s&productID=%s" % (id, address, postcode, product_id)
-    order_request = get_google_function_data(create_order_function_url)
+    product_price = order_request_details['product_price']
+    body = {"id": id, "address": address, "postcode": postcode, "product_id": product_id, "product_price": product_price}
 
-    return order_request
+    create_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/create_order"
+    order_req = requests.post(create_order_function_url,
+    json=body,
+    headers = {"Content-type": "application/json", "Accept": "text/plain"})
+    order_data = order_req.json()
+
+    return order_data
     
 
 @app.route('/orders')

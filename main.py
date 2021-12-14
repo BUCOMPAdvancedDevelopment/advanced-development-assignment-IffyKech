@@ -1,7 +1,6 @@
 import logging
 import requests
 from flask import Flask, render_template, request, redirect, url_for
-from db_scripts import create_order
 
 app = Flask(__name__)
 
@@ -39,11 +38,17 @@ def render_product():
     return render_template('product.html', product_data=product_data)
 
 @app.route('/order', methods=['POST'])
-def create_order():
+def process_order():
     order_request_details = request.get_json()
-    create_order(order_request_details)
-    print("Done")
-    return "success", 200
+    id = order_request_details['id']
+    address = order_request_details['address']
+    postcode = order_request_details['postcode']
+    product_id = order_request_details['product_id']
+    create_order_function_url = "https://europe-west2-ad-lab-21.cloudfunctions.net/create_order?id=%s&address=%s&postcode=%s&productID=%s" % (id, address, postcode, product_id)
+    order_request = get_google_function_data(create_order_function_url)
+
+    return order_request
+    
 
 @app.route('/orders')
 def render_orders():

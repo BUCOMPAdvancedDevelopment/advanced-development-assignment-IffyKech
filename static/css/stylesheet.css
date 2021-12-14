@@ -12,3 +12,6 @@
 #productColumn {
     margin: 30px 0;
 }
+#orderDetailRow, #orderCard {
+    margin: 10px 0px 10px 0px;
+}

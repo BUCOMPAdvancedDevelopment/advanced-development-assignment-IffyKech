@@ -8,12 +8,16 @@ window.addEventListener('load', function(){
             var userPostcode = document.getElementById('postcodeInput').value;
             var productID = document.getElementById('productIdText').innerText;
             var productPrice = document.getElementById('productPriceText').innerText;
+            var productName = document.getElementById('productName').innerText;
+            var productSrc = document.getElementById('productImage').src;
             var postBody = {
                 "id": userID,
                 "address": userAddress,
                 "postcode": userPostcode,
                 "product_id": productID,
-                "product_price": productPrice
+                "product_price": productPrice,
+                "product_name": productName,
+                "product_src": productSrc
             };
 
             // Start HTTP request
